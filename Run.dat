@@ -1,0 +1,35 @@
+(run){
+  # generator parameters
+  EVENTS 10000; ANALYSIS Rivet;
+  ME_SIGNAL_GENERATOR Comix;
+
+  # model & decays
+  HARD_DECAYS On;
+  HDH_STATUS[25,5,-5] 2;
+  MASSIVE[5] 1;
+  WIDTH[25] 0;
+
+  # collider parameters
+  BEAM_1 2212; BEAM_ENERGY_1 6500;
+  BEAM_2 2212; BEAM_ENERGY_2 6500;  
+}(run);
+
+(processes){
+  Process 93 93 -> 25 22 93 93;
+  Order (0,4);
+  End process;
+}(processes);
+
+(selector){
+  NJetFinder 2 30. 0. 0.4 -1;
+  Mass 93 93 500. E_CMS;
+  PT 22 20. E_CMS;
+  DeltaR 22 93 0.4 10000.;
+  DeltaEta 93 93 3.5 1000.;
+}(selector);
+
+(analysis){
+  BEGIN_RIVET {
+    -a dijets;
+  } END_RIVET
+}(analysis);
